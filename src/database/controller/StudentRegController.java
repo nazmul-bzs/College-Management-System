@@ -8,15 +8,11 @@ package database.controller;
 import database.Database;
 import database.model.*;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -71,43 +67,9 @@ public class StudentRegController implements Initializable {
         list.add(2, lnameField.getText());
         list.add(3, sexField.getText());
         list.add(4, dbirthField.getText());
-        new Student().insertData(list);
-//        Thread t=new  Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                
-//                insertData(list);
-//                }
-//        }).start();
+        new Student().insertStudentData(list);
         
     }
     
-    public void insertData(ArrayList<String> list) {
-        try
-        {
-            Connection con = new ConnectionUtil().getConnection();
-            String sql = "insert into STUDENT (STDID, FIRSTNAME, LASTNAME,SEX) values(?,?,?,?)" ;
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, Integer.parseInt(list.get(0)));
-            pst.setString(2, list.get(1));
-            pst.setString(3, list.get(2));
-            pst.setString(4, list.get(3));
-           // pst.setString(4, list.get(4));
-            pst.executeUpdate();
-            pst.close();
-            con.close();
-        }catch (SQLException e)
-        {
-            System.out.println("Connection Failed! Check it from console");
-            e.printStackTrace();
-        }
-    }
-    
-    public void showIntegretyAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("ERROR");
-        alert.setContentText("This student id is already in database");
-        alert.show();
-    }
     
 }

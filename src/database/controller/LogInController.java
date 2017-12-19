@@ -62,7 +62,7 @@ public class LogInController implements Initializable {
         String user = ChoiceUser.getValue();
         boolean success = new userLogin(user).validateLogin(username, password);
         if(success) {
-            database.nextPage();
+            database.showAdminPge();
             System.out.println("yes");
         }
         else {

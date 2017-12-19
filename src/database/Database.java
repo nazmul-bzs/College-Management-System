@@ -68,4 +68,14 @@ public class Database extends Application{
         regStage.show();
     }
     
+    public void showAdminPge() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("view/AdminLogIn.fxml"));
+        Parent root = loader.load();
+        AdminLogInController controller = loader.getController();
+        controller.setDatabase(this);
+        stage.setTitle("Admin Panel");
+        stage.setScene(new Scene(root, 450, 400));
+        stage.show();
+    }
 }

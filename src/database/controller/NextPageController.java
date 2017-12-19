@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package database.controller;
-import database.controller.User;
+import database.controller.StudentUser;
 import database.Database;
 import database.model.Student;
 import java.util.List;
@@ -32,19 +32,19 @@ public class NextPageController{
     @FXML
     private Button showAllButton;
     @FXML
-    private TableView<User> tableView;
-    ObservableList<User> data;
+    private TableView<StudentUser> tableView;
+    ObservableList<StudentUser> data;
     private boolean init = true;
     @FXML
-    private TableColumn<User, String> stdId;
+    private TableColumn<StudentUser, String> stdId;
     @FXML
-    private TableColumn<User, String> fName;
+    private TableColumn<StudentUser, String> fName;
     @FXML
-    private TableColumn<User, String> lName;
+    private TableColumn<StudentUser, String> lName;
     @FXML
-    private TableColumn<User, String> sex;
+    private TableColumn<StudentUser, String> sex;
     @FXML
-    private TableColumn<User, String> bDate;
+    private TableColumn<StudentUser, String> bDate;
 
     /**
      * Initializes the controller class.
@@ -53,11 +53,11 @@ public class NextPageController{
      */
     private void initializeColumns()
     {
-        stdId.setCellValueFactory(new PropertyValueFactory<User, String>("STDID"));
-        fName.setCellValueFactory(new PropertyValueFactory<User, String>("FIRSTNAME"));
-        lName.setCellValueFactory(new PropertyValueFactory<User, String>("LASTNAME"));
-        sex.setCellValueFactory(new PropertyValueFactory<User, String>("SEX"));
-        bDate.setCellValueFactory(new PropertyValueFactory<User, String>("BDATE"));
+        stdId.setCellValueFactory(new PropertyValueFactory<StudentUser, String>("STDID"));
+        fName.setCellValueFactory(new PropertyValueFactory<StudentUser, String>("FIRSTNAME"));
+        lName.setCellValueFactory(new PropertyValueFactory<StudentUser, String>("LASTNAME"));
+        sex.setCellValueFactory(new PropertyValueFactory<StudentUser, String>("SEX"));
+        bDate.setCellValueFactory(new PropertyValueFactory<StudentUser, String>("BDATE"));
     }
 
     
@@ -84,10 +84,10 @@ public class NextPageController{
         }
         data = FXCollections.observableArrayList();
 
-        List<List<String>> userDataList = new Student().getAllUsers();
+        List<List<String>> userDataList = new Student().getAllStudents();
         for (List<String> row : userDataList)
         {  
-            User us=new User(row.get(0), row.get(1), row.get(2),row.get(3), row.get(4));
+            StudentUser us=new StudentUser(row.get(0), row.get(1), row.get(2),row.get(3), row.get(4));
             data.add(us);
         }
         tableView.setItems(data);
