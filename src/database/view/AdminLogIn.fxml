@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane prefHeight="587.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="database.controller.AdminLogInController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -59,7 +58,7 @@
                                           <Label layoutX="23.0" layoutY="30.0" text="Search Student" />
                                           <TextField fx:id="StdSearchField" layoutX="10.0" layoutY="65.0" />
                                           <Button fx:id="StdSearchButton" layoutX="14.0" layoutY="103.0" mnemonicParsing="false" onAction="#StdSearchAction" text="Search" />
-                                          <TableView fx:id="StdTableView" layoutX="282.0" layoutY="24.0" prefHeight="533.0" prefWidth="419.0">
+                                          <TableView fx:id="StdTableView" layoutX="280.0" layoutY="24.0" prefHeight="533.0" prefWidth="419.0">
                                             <columns>
                                               <TableColumn fx:id="sidColumn" prefWidth="86.0" text="Std Id" />
                                               <TableColumn fx:id="sfnameColumn" prefWidth="74.0" text="First Name" />
@@ -75,7 +74,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab fx:id="StdDueMonthCombo" text="Due">
+                              <Tab text="Due">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -88,7 +87,7 @@
                                              </columns>
                                           </TableView>
                                           <Label layoutX="470.0" layoutY="6.0" text="Due List" />
-                                          <ComboBox layoutX="39.0" layoutY="25.0" prefWidth="150.0" promptText="Month" />
+                                          <ComboBox fx:id="StdDueMonthCombo" layoutX="39.0" layoutY="25.0" prefWidth="150.0" promptText="Month" />
                                           <Button fx:id="StdDueShowButton" layoutX="39.0" layoutY="76.0" mnemonicParsing="false" onAction="#StdDueShowAction" text="Show" />
                                        </children>
                                     </AnchorPane>
@@ -142,6 +141,55 @@
                   </BorderPane>
                </content>
           </Tab>
+            <Tab text="Profile">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <TabPane prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                          <tabs>
+                            <Tab text="View Profile">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="165.0" layoutY="72.0" text="Admin Id" />
+                                          <Label layoutX="165.0" layoutY="110.0" text="First Name" />
+                                          <Label layoutX="165.0" layoutY="148.0" text="Last Name" />
+                                          <Label layoutX="165.0" layoutY="188.0" text="Sex" />
+                                          <Label layoutX="161.0" layoutY="221.0" text="Birth Date" />
+                                          <Label fx:id="profileFname" layoutX="290.0" layoutY="110.0" text="Label" />
+                                          <Label fx:id="profileId" layoutX="290.0" layoutY="72.0" text="Label" />
+                                          <Label fx:id="profileLname" layoutX="290.0" layoutY="148.0" text="Label" />
+                                          <Label fx:id="profileSex" layoutX="290.0" layoutY="188.0" text="Label" />
+                                          <Label fx:id="profileBdate" layoutX="290.0" layoutY="221.0" text="Label" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Edit Profile">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="163.0" layoutY="111.0" text="Admin Id" />
+                                          <Label layoutX="158.0" layoutY="150.0" text="First Name" />
+                                          <Label layoutX="159.0" layoutY="187.0" text="Last Name" />
+                                          <Label layoutX="162.0" layoutY="228.0" text="Sex" />
+                                          <Label layoutX="161.0" layoutY="270.0" text="Birth Date" />
+                                          <TextField fx:id="editProfileId" editable="false" layoutX="234.0" layoutY="107.0" />
+                                          <TextField fx:id="editProfileFname" layoutX="234.0" layoutY="146.0" />
+                                          <TextField fx:id="editProfileLname" layoutX="234.0" layoutY="181.0" />
+                                          <TextField fx:id="editProfileSex" layoutX="234.0" layoutY="222.0" />
+                                          <TextField fx:id="editProfileBdate" layoutX="234.0" layoutY="267.0" />
+                                          <Button fx:id="editProfileSaveButton" layoutX="326.0" layoutY="324.0" mnemonicParsing="false" text="Save" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </center>
+                  </BorderPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>

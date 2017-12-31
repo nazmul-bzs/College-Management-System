@@ -13,7 +13,7 @@ import java.util.List;
  * @author Nazmul
  */
 public class  TEACHER{
-    public void insertData(ArrayList<String> list) {
+    public void insertTeacherData(ArrayList<String> list) {
         try
         {
             Connection con = new ConnectionUtil().getConnection();

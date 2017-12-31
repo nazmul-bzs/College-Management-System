@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -26,15 +27,15 @@ import javafx.scene.control.TextField;
  */
 public class LogInController implements Initializable {
     
-    ObservableList<String> LoginAs = FXCollections.observableArrayList("Student", "Staff");
-    Database database;
+    private final ObservableList<String> LoginAs = FXCollections.observableArrayList("Student", "Staff");
+    private Database database;
 
     @FXML
     private TextField UserNameField;
     @FXML
     private PasswordField PasswordField;
     @FXML
-    private ChoiceBox<String> ChoiceUser;
+    private ComboBox<String> ChoiceUser;
     @FXML
     private Button ResetButton;
     @FXML
@@ -47,7 +48,6 @@ public class LogInController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ChoiceUser.setValue("Student");
         ChoiceUser.setItems(LoginAs);
     }    
 
@@ -61,8 +61,14 @@ public class LogInController implements Initializable {
         String password = PasswordField.getText();
         String user = ChoiceUser.getValue();
         boolean success = new userLogin(user).validateLogin(username, password);
-        if(success) {
+        if(success && user.equalsIgnoreCase("Staff")) {
+            Admin.LoggedInAdminId = username;
             database.showAdminPge();
+            System.out.println("yes");
+        }
+        else if(success && user.equalsIgnoreCase("Student")) {
+            Student.LoggedInStudentId = username;
+            database.showStudentPage();
             System.out.println("yes");
         }
         else {

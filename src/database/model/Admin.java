@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
  * @author Nazmul
  */
 public class Admin {
+    public static String LoggedInAdminId;
     public void insertData(ArrayList<String> list) {
         try
         {
@@ -61,5 +62,33 @@ public class Admin {
             
         }
         return resultList;
+    }
+    
+    public static List<String> getAnAdmin() {
+        String sql = "SELECT * FROM ADMIN WHERE AD_ID = ?";
+        List<String> row = new ArrayList<>();
+        try{
+            Connection con = new ConnectionUtil().getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(0, Admin.LoggedInAdminId);
+            ResultSet rs = pst.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while (rs.next())
+            {
+                
+                row.add(rs.getString("AD_ID"));
+                row.add(rs.getString("ROOMNO"));
+                row.add(rs.getString("START_DATE"));
+                row.add(rs.getString("END_DATE"));
+                row.add(rs.getString("ROLE"));
+            }
+            pst.close();
+            con.close();
+        }
+        catch(Exception e)
+        {
+            
+        }
+        return row;
     }
 }

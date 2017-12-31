@@ -79,5 +79,41 @@ public class STAFF {
         }
         return resultList;
     }
+    
+    
+    public static List<String> getAStaff()
+    {
+        String sql = "SELECT * FROM STAFF WHERE STFNO = ?";
+        List<String> row = new ArrayList<>();
+        try{
+            Connection con = new ConnectionUtil().getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(0, Admin.LoggedInAdminId);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                row.add(rs.getString("STFNO"));
+                row.add(rs.getString("FIRSTNAME"));
+                row.add(rs.getString("LASTNAME"));
+                row.add(rs.getString("SEX"));
+                row.add(rs.getString("BDATE"));
+                row.add(rs.getString("JOINDATE"));
+                row.add(rs.getString("JOB_DESC"));
+                row.add(rs.getString("CURRENTADRESS"));
+                row.add(rs.getString("PERMENANTADRESS"));
+                row.add(rs.getString("STFCONTACTNO"));
+                row.add(rs.getString("M_SAL"));
+                row.add(rs.getString("STATUS"));
+                row.add(rs.getString("PASSWORD"));
+            }
+            pst.close();
+            con.close();
+        }
+        catch(Exception e)
+        {
+            
+        }
+        return row;
+    }
 }
 

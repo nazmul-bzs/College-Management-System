@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
  * @author Nazmul
  */
 public class Student {
+    public static String LoggedInStudentId;
     public void insertStudentData(ArrayList<String> list) {
         try
         {
@@ -79,4 +80,116 @@ public class Student {
         }
         return resultList;
     }
+    
+    public List<List<String>> searchById(String StdId) {
+        String sql = "SELECT * FROM STUDENT WHERE STDID = " + StdId;
+        List<List<String>> resultList = new ArrayList<>();
+        try{
+            Connection con = new ConnectionUtil().getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                List<String> row = new ArrayList<>();
+                row.add(String.valueOf(rs.getInt("STDID")));
+                row.add(rs.getString("FIRSTNAME"));
+                row.add(rs.getString("LASTNAME"));
+                row.add(rs.getString("SEX"));
+                row.add(String.valueOf(rs.getDate("BDATE")));
+                resultList.add(row);
+            }
+            pst.close();
+            con.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+    
+    
+    public List<List<String>> searchByfName(String Fname) {
+        String sql = "SELECT * FROM STUDENT WHERE FIRSTNAME = ?";
+        System.out.println(sql);
+        List<List<String>> resultList = new ArrayList<>();
+        try{
+            Connection con = new ConnectionUtil().getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, Fname);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                List<String> row = new ArrayList<>();
+                row.add(String.valueOf(rs.getInt("STDID")));
+                row.add(rs.getString("FIRSTNAME"));
+                row.add(rs.getString("LASTNAME"));
+                row.add(rs.getString("SEX"));
+                row.add(String.valueOf(rs.getDate("BDATE")));
+                resultList.add(row);
+            }
+            pst.close();
+            con.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+    
+    
+     public List<List<String>> dueStdList(String month) {
+        String sql = "Select s.stdid, s.firstname, s.lastname " +
+                       "from student s, fe[e_receipt f " +
+                        "where s.Stdid = f.std_id and Lower(f.paid_status) = Lower('DUE') " +
+                        "and f.Month = ?";
+        System.out.println(sql);
+        List<List<String>> resultList = new ArrayList<>();
+        try{
+            Connection con = new ConnectionUtil().getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, month);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next())
+            {
+                List<String> row = new ArrayList<>();
+                row.add(String.valueOf(rs.getInt("STDID")));
+                row.add(rs.getString("FIRSTNAME"));
+                row.add(rs.getString("LASTNAME"));
+                row.add(null);
+                //row.add(String.valueOf(rs.getDate("BDATE")));
+                resultList.add(row);
+            }
+            pst.close();
+            con.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+     
+     public void updateStudentData(ArrayList<String> list, int stdid) {
+         try
+        {
+            Connection con = new ConnectionUtil().getConnection();
+            String sql = "UPDATE STUDENT SET FIRSTNAME = ?, LASTNAME = ?, SEX = ?, BDATE = ? WHERE STDID = " + stdid;
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, list.get(0));
+            pst.setString(2, list.get(1));
+            pst.setString(3, list.get(2));
+            try {
+                
+                pst.setDate(4, new Date((new SimpleDateFormat("yyyy-mm-dd")).parse(list.get(3)).getTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            pst.executeUpdate();
+            pst.close();
+            con.close();
+        }catch(SQLException e){
+            System.out.println("Connection Failed! Check it from console");
+            e.printStackTrace();
+        }
+     }
+    
 }

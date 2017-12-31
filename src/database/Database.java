@@ -7,11 +7,14 @@ package database;
 
 import database.model.*;
 import database.controller.*;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
 
 /**
  *
@@ -23,6 +26,7 @@ public class Database extends Application{
      * @param args the command line arguments
      */
     Stage stage;
+    private Student student;
     
     public static void main(String[] args) {
         launch(args);
@@ -32,6 +36,7 @@ public class Database extends Application{
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         showLoginPage();
+        //showStudentPage();
     }
     
     public void showLoginPage() throws Exception{
@@ -75,7 +80,38 @@ public class Database extends Application{
         AdminLogInController controller = loader.getController();
         controller.setDatabase(this);
         stage.setTitle("Admin Panel");
-        stage.setScene(new Scene(root, 450, 400));
+        stage.setScene(new Scene(root, 735, 590));
+        stage.show();
+    }
+    public void showStudentPage() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("view/StudentHomePage.fxml"));
+        Parent root = loader.load();
+        StudentHomePageController controller = loader.getController();
+        controller.setDatabase(this);
+        stage.setTitle("Student Panel");
+        stage.setScene(new Scene(root, 600, 400));
+        stage.show();
+    }
+    
+    public void showStudentProfileView() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("view/StudentProfileView.fxml"));
+        Parent root = loader.load();
+        StudentProfileViewController controller = loader.getController();
+        controller.setDatabase(this);
+        stage.setTitle("Student Panel");
+        stage.setScene(new Scene(root, 600, 400));
+        stage.show();
+    }
+    public void showStudentProfileEdit() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("view/StudentProfileEdit.fxml"));
+        Parent root = loader.load();
+        StudentProfileEditController controller = loader.getController();
+        controller.setDatabase(this);
+        stage.setTitle("Student Panel");
+        stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
 }
